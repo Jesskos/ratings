@@ -47,7 +47,7 @@ def run_function():
 
     while keep_running_function == True:
 
-        choose_action = raw_input("\n Please choose one of the following numbers: \n Enter 1 to see all the rating) \n Enter 2 to add a new restaurant (and rate it) \n Choose 3 to modify a random restaurant \n Enter 4 to quit \n ")
+        choose_action = raw_input("\n Please choose one of the following numbers: \n Enter 1 to see all the rating) \n Enter 2 to add a new restaurant (and rate it) \n Choose 3 to modify a random restaurant \n Enter 4 to modify an existing restaurant \n Enter 5 to quit \n ")
        
         if choose_action == "1":
             print_ratings_alphabetically(restaurants_with_ratings)
@@ -61,6 +61,9 @@ def run_function():
 
 
         elif choose_action == "4":
+            print modify_existing_restaurant(restaurants_with_ratings)
+
+        elif choose_action == "5":
             keep_running_function = False
         
 
@@ -81,9 +84,38 @@ def ask_user_for_restaurant_and_rating(restaurants_with_ratings):
 
 
 def modify_random_restaurant(restaurants_with_ratings):
-    restaurants = restaurants_with_ratings.keys
+    restaurants = restaurants_with_ratings.keys()
     random_restaurant = random.choice(restaurants)
-    print random_restaurant
+    rating = True  
+    while rating == True:
+        users_rating = int(raw_input("Please enter your rating of {}".format(random_restaurant)))
+        if users_rating > 5 or users_rating < 0:
+            print "Please try again with a rating of 1-5"
+        else:
+            print "Your rating has been added!"
+            rating = False
+            restaurants_with_ratings[random_restaurant] = users_rating
+
+
+def modify_existing_restaurant(restaurants_with_ratings):
+    for restaurant, rating in restaurants_with_ratings.items():
+        print "Restaurant: {}, rating: {}".format(restaurant, rating)
+    rating = True  
+    while rating == True:
+        users_restaurant = raw_input("Please enter a restaurant from the list above\n").title()
+        users_rating = int(raw_input("Please enter your rating of {}\n".format(users_restaurant)))
+        if (users_rating > 5 or users_rating < 0):
+            print "Please try again with a rating of 1-5"
+        elif users_restaurant not in restaurants_with_ratings.keys():
+            print "Uh oh. This restuarant does not exist, or you may have spelling error. Choose a restaurant from the list"
+        else:
+            rating = False
+            restaurants_with_ratings[users_restaurant] = users_rating
+            print "Your restaurant has been added."
+            return None
+
+
+
 
 ratings = making_restaurant_ratings_list('scores.txt')
 restaurants_with_ratings = make_ratings(ratings)
