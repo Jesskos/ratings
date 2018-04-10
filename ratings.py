@@ -17,7 +17,7 @@ def making_restaurant_ratings_list(file_name):
             line = line.rstrip()
             words_in_line = line.split(':')
             restaurant_ratings_list.append(words_in_line)
-        print restaurant_ratings_list
+        #print restaurant_ratings_list
         return restaurant_ratings_list
 
 
@@ -29,15 +29,17 @@ def make_ratings(ratings_list):
     for restaurant in ratings_list:
         restaurant_ratings[restaurant[0]] = restaurant[1]
 
-    print restaurant_ratings
-    print type(restaurant_ratings)
+    #print restaurant_ratings
+    #print type(restaurant_ratings)
 
     return restaurant_ratings
 
 
 def print_ratings_alphabetically(restaurant_dict):
     #with open(file_name) as file_name:
-        
+        new_restaurant = raw_input("Give me a new restaurant to add: ")
+        new_rating = raw_input("Give me a new rating to add for that restaurant: ")
+        restaurant_dict[new_restaurant] = new_rating
         alphabetical_restaurants = sorted(restaurant_dict.keys())
         for restaurant in alphabetical_restaurants:
             rating = restaurant_dict[restaurant]
