@@ -17,7 +17,6 @@ def making_restaurant_ratings_list(file_name):
             line = line.rstrip()
             words_in_line = line.split(':')
             restaurant_ratings_list.append(words_in_line)
-        #print restaurant_ratings_list
         return restaurant_ratings_list
 
 
@@ -26,24 +25,26 @@ def make_ratings(ratings_list):
     
     restaurant_ratings = {}
 
-    for restaurant in ratings_list:
-        restaurant_ratings[restaurant[0]] = restaurant[1]
+    for restaurant, rating in ratings_list:
+        restaurant_ratings[restaurant] = rating
 
-    #print restaurant_ratings
-    #print type(restaurant_ratings)
 
     return restaurant_ratings
 
 
 def print_ratings_alphabetically(restaurant_dict):
-    #with open(file_name) as file_name:
-        new_restaurant = raw_input("Give me a new restaurant to add: ")
-        new_rating = raw_input("Give me a new rating to add for that restaurant: ")
-        restaurant_dict[new_restaurant] = new_rating
-        alphabetical_restaurants = sorted(restaurant_dict.keys())
-        for restaurant in alphabetical_restaurants:
-            rating = restaurant_dict[restaurant]
-            print "{} is rated at {}".format(restaurant, rating)
+    # rating = True  
+    # while rating == True:
+    new_restaurant = raw_input("Give me a new restaurant to add: ").title()
+    new_rating = int(raw_input("Give me a new rating to add for that restaurant: "))
+        # if new_rating < 0 and new_rating > 6:
+        #     print "Please try again with a rating of 1-5"
+        # else:
+        #     rating = False
+    restaurant_dict[new_restaurant] = new_rating
+    alphabetical_restaurants = sorted(restaurant_dict.items())
+    for restaurant, rating in alphabetical_restaurants:
+        print "{} is rated at {}".format(restaurant, rating)
 
 
 
